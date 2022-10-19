@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import Header from './components/Header'
+import Home from './components/Home'
+import Register from './components/Register'
+import LandingPage from './components/LandingPage'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Routes, Route } from 'react-router-dom'
+import { useState } from 'react'
+function App () {
+  const [bool, setBool] = useState(false)
 
-function App() {
+  const toggle = () => {
+    setBool(prev => !prev)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      {bool && <Header />}
+      <Routes>
+        <Route path='/' element={bool ? <Home /> : <LandingPage />} />
+        <Route path='/register' element={<Register />} />
+      </Routes>
+      {!bool && (
+        <div>
+          <button style={{ marginLeft: '54%' }} onClick={toggle}>
+            Enter
+          </button>
+        </div>
+      )}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
